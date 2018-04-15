@@ -1,0 +1,56 @@
+import java.util.NoSuchElementException;
+
+public class QueueLinked<Type>{
+	
+	private class Node{
+		Type data;
+		Node next;
+		
+		private Node(Type data) {
+			this.data = data;
+			next = null;
+		}
+	}
+	
+	Node head;
+	Node tail;
+	
+	public QueueLinked() {
+		head = tail = null;
+	}
+
+	public Type dequeue() throws NoSuchElementException{
+		if (isEmpty()) throw new NoSuchElementException("underflow error");
+		Type rdata = head.data;
+		if(isEmpty()) tail = null;
+		return rdata;
+	}
+
+
+	public void enqueue(Type data) {
+		tail.next = new Node(data);
+		if( isEmpty() ) head = tail;
+		else tail = tail.next;
+	}
+
+
+	public Type examine() throws NoSuchElementException{
+		if (isEmpty()) throw new NoSuchElementException("underflow error ");
+		return head.data;
+	}
+
+
+	public boolean isEmpty() {
+		return head == null;
+	}
+	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		Node temp = head;
+		while(temp!=null) {
+			sb.append("->"+temp.data);
+			temp = temp.next;
+		}
+		return sb.toString();
+	}
+}
